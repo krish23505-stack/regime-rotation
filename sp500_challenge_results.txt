@@ -1,0 +1,68 @@
+sp500_challenge v1
+Downloading price history from Yahoo Finance...
+Got 6006 trading days: 2003-01-02 to 2026-11-13
+
+Variants tested: 12   History: 2004-02-03 to 2026-11-13
+
+WALK-FORWARD RESULT (2016-01-04 to 2026-11-13, every year picked using only earlier years)
+
+          Strategy (walk-forward)  S&P 500 (SPY)  VTI/VXUS 60/40
+CAGR %                       9.07          14.64           12.16
+Vol %                       13.20          17.72           17.14
+Sharpe                       0.72           0.86            0.76
+Max DD %                   -18.09         -33.72          -34.41
+Total %                    156.40         340.00          247.07
+
+vs SPY: alpha +0.82% per year | beta 0.57 | alpha t-stat 0.32
+
+PASS/FAIL (criteria set before seeing results):
+  [FAIL] Higher CAGR than SPY (9.07% vs 14.64%)
+  [FAIL] Higher Sharpe than SPY (0.72 vs 0.86)
+  [FAIL] Alpha t-stat at least 2 (got 0.32)
+  Smaller worst drop than SPY: -18.1% vs -33.7% (yes) (not part of the pass rule)
+
+OVERALL: Does NOT clear all three tests.
+
+Year by year:
+
+      Strategy %  SPY %  Diff %             Variant used
+Date                                                    
+2016        -1.5   12.0   -13.5      12-1 | top5 | trend
+2017        17.4   21.7    -4.3      12-1 | top5 | trend
+2018        -4.6   -4.6    -0.0     blend | top8 | trend
+2019        13.1   31.2   -18.1  blend | top8 | no-trend
+2020        22.4   18.3     4.1  blend | top8 | no-trend
+2021        18.7   28.7   -10.0  blend | top8 | no-trend
+2022       -11.8  -18.2     6.4     blend | top8 | trend
+2023         9.4   26.2   -16.8  blend | top8 | no-trend
+2024        14.3   24.9   -10.5  blend | top8 | no-trend
+2025        15.8   17.7    -1.9  blend | top8 | no-trend
+2026        10.7   11.5    -0.8  blend | top8 | no-trend
+
+Years beating SPY: 2 of 11
+
+Stress periods (using the fixed 'blend | top5 | trend' variant):
+  2008 financial crisis    strategy     0.3%   SPY   -54.8%
+  COVID crash              strategy    -5.0%   SPY   -33.4%
+  2022 bear market         strategy    -8.2%   SPY   -24.1%
+
+Every variant, full history vs SPY (for transparency only; picking the best one here would be cheating):
+
+                         CAGR %  Sharpe  Max DD %
+12-1 | top3 | trend        9.29    0.66    -23.28
+12-1 | top3 | no-trend    11.17    0.67    -30.29
+12-1 | top5 | trend        8.89    0.70    -22.48
+12-1 | top5 | no-trend    11.50    0.77    -24.97
+12-1 | top8 | trend        8.15    0.69    -21.74
+12-1 | top8 | no-trend    10.49    0.75    -24.87
+blend | top3 | trend       9.78    0.69    -29.01
+blend | top3 | no-trend   11.55    0.73    -25.53
+blend | top5 | trend       9.57    0.74    -20.00
+blend | top5 | no-trend   11.24    0.79    -22.28
+blend | top8 | trend       9.24    0.77    -18.20
+blend | top8 | no-trend   10.78    0.82    -17.29
+S&P 500 (SPY)             10.66    0.64    -55.19
+
+Saved sp500_challenge_equity.csv
+
+CAVEATS: one historical path, not a forecast. ETF history before 2007 uses a Treasury fund as cash. Costs are a flat 5 bps per unit traded. Returns are before taxes.
