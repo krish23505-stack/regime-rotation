@@ -1,0 +1,94 @@
+aggressive_challenge v1
+Downloading price history from Yahoo Finance...
+Got 6006 trading days: 2003-01-02 to 2026-11-13
+
+Variants tested: 12   History: 2004-02-03 to 2026-11-13
+
+WALK-FORWARD RESULT (2008-01-02 to 2026-11-13, every year picked using only earlier years)
+
+          Strategy (walk-forward)  S&P 500 (SPY)  VTI/VXUS 60/40
+CAGR %                       7.05          11.10            8.51
+Vol %                       15.11          19.72           20.07
+Sharpe                       0.53           0.63            0.51
+Max DD %                   -29.50         -51.87          -54.76
+Total %                    261.13         626.17          365.71
+
+vs SPY (whole period): alpha +1.79% per year | beta 0.49 | alpha t-stat 0.67
+
+Era 2008-2015:
+          Strategy  S&P 500 (SPY)
+CAGR %        6.31           6.47
+Vol %        14.78          22.14
+Sharpe        0.49           0.39
+Max DD %    -21.16         -51.87
+Total %      63.14          65.04
+
+Era 2016-2026:
+          Strategy  S&P 500 (SPY)
+CAGR %        7.60          14.64
+Vol %        15.35          17.72
+Sharpe        0.55           0.86
+Max DD %    -29.50         -33.72
+Total %     121.36         340.00
+
+PASS/FAIL (rules set before seeing results):
+  [FAIL] 2008-2015: CAGR higher than SPY (6.31% vs 6.47%)
+  [PASS] 2008-2015: Sharpe higher than SPY (0.49 vs 0.39)
+  [FAIL] 2016-2026: CAGR higher than SPY (7.60% vs 14.64%)
+  [FAIL] 2016-2026: Sharpe higher than SPY (0.55 vs 0.86)
+  [FAIL] Alpha t-stat at least 2 (got 0.67)
+  Worst drop vs SPY: -29.5% vs -51.9% (not part of the rules)
+
+OVERALL: Does NOT clear every test.
+
+Year by year:
+
+      Strategy %  SPY %  Diff %             Variant used
+Date                                                    
+2008         0.3  -36.8    37.1     blend | top2 | trend
+2009        20.0   26.4    -6.3     blend | top2 | trend
+2010         8.5   15.1    -6.6     blend | top5 | trend
+2011        -3.6    1.9    -5.5     blend | top5 | trend
+2012         3.1   16.0   -12.9     blend | top2 | trend
+2013        28.0   32.3    -4.3     blend | top5 | trend
+2014        10.4   13.5    -3.1      12-1 | top5 | trend
+2015       -11.0    1.2   -12.3     blend | top5 | trend
+2016         1.3   12.0   -10.7      12-1 | top5 | trend
+2017        17.1   21.7    -4.6      12-1 | top5 | trend
+2018        -9.4   -4.6    -4.9      12-1 | top5 | trend
+2019         7.7   31.2   -23.6     blend | top5 | trend
+2020        20.8   18.3     2.4  blend | top5 | no-trend
+2021        17.8   28.7   -10.9     blend | top5 | trend
+2022        -9.8  -18.2     8.4     blend | top5 | trend
+2023         7.8   26.2   -18.3     blend | top5 | trend
+2024        15.5   24.9    -9.3     blend | top5 | trend
+2025         9.2   17.7    -8.5     blend | top5 | trend
+2026         9.5   11.5    -2.0     blend | top5 | trend
+
+Years beating SPY: 3 of 19
+
+Stress periods (fixed 'blend | top3 | trend' variant):
+  2008 financial crisis    strategy    -2.3%   SPY   -54.8%
+  COVID crash              strategy    -7.6%   SPY   -33.4%
+  2022 bear market         strategy    -2.7%   SPY   -24.1%
+
+Every variant, full history vs SPY (transparency only; picking the best here would be cheating):
+
+                         CAGR %  Sharpe  Max DD %
+12-1 | top2 | trend        9.19    0.61    -22.92
+12-1 | top2 | no-trend    11.82    0.65    -31.93
+12-1 | top3 | trend        8.96    0.63    -22.84
+12-1 | top3 | no-trend    11.47    0.66    -30.29
+12-1 | top5 | trend        8.71    0.67    -22.54
+12-1 | top5 | no-trend    11.08    0.69    -30.02
+blend | top2 | trend       8.73    0.59    -28.05
+blend | top2 | no-trend   10.89    0.62    -31.99
+blend | top3 | trend       9.55    0.67    -22.00
+blend | top3 | no-trend   11.16    0.67    -29.66
+blend | top5 | trend       9.69    0.73    -21.16
+blend | top5 | no-trend   11.08    0.73    -27.11
+S&P 500 (SPY)             10.66    0.64    -55.19
+
+Saved aggressive_challenge_equity.csv
+
+CAVEATS: one historical path, not a forecast. The 2016-2026 era was seen before this design was chosen. ETF history before 2007 uses a Treasury fund as cash. Costs are a flat 5 bps per unit traded. Returns are before taxes.
